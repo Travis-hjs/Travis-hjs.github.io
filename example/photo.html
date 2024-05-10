@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>长图合成工具</title>
+  <link rel="stylesheet" href="./css/photo.css">
+</head>
+<body>
+  <div class="page">
+    <div class="content"></div>
+    <div class="btn-box">
+      <input class="btn scale-input" type="number" placeholder="缩放值(默认2)">
+      <button class="btn create-btn" onclick="createPicture()">导出图片</button>
+      <button class="btn preview-btn" onclick="createPicture(true)">生成长图</button>
+      <div class="btn upload-btn">
+        <span class="upload-text">点击上传</span>
+        <input class="upload-input" type="file" multiple accept="image/*" name="picture" onchange="upload(this)">
+      </div>
+    </div>
+  </div>
+  <section class="mask mask-hide">
+    <div class="mask-content"></div>
+  </section>
+  <script src="https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="./js/photo.js"></script>
+</body>
+</html>

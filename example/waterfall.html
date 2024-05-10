@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/base.css">
+  <title>瀑布流 + 虚拟列表</title>
+  <style>
+    .layout {
+      width: 100%;
+      min-height: 100vh;
+      background-color: #eee;
+      --nav-height: 50px;
+      --sidebar-width: 210px;
+      --blue: #1677ff;
+      --dark-blue: #001529;
+      --padding: 12px;
+      --transition: .3s all;
+      padding-top: calc(var(--nav-height) + var(--padding));
+      padding-left: calc(var(--sidebar-width) + var(--padding));
+      padding-right: var(--padding);
+    }
+    .layout .header {
+      width: calc(100% - var(--sidebar-width));
+      position: fixed;
+      top: 0;
+      height: var(--nav-height);
+      left: var(--sidebar-width);
+      transition: var(--transition);
+      background: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 0 var(--padding);
+      z-index: 10;
+      overflow: hidden;
+    }
+    .layout .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: var(--sidebar-width);
+      background-color: var(--dark-blue);
+      transition: var(--transition);
+      z-index: 9;
+    }
+    .layout .content {
+      width: 100%;
+      transition: var(--transition);
+      padding: var(--padding);
+      min-height: calc(100vh - var(--nav-height) - var(--padding) - var(--padding));
+      background-color: #fff;
+    }
+
+    .list {
+      position: relative;
+    }
+    .list .item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      /* width: 300px; */
+      /* transition: var(--transition); */
+    }
+    .list .item .text {
+      padding: 10px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #555;
+    }
+    .list .item img {
+      display: block;
+      width: 100%;
+    }
+    .bottom-tips {
+      width: 100%;
+      height: 80px;
+      font-size: 15px;
+      color: var(--gary);
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav class="header f-v f-between">
+      <button class="the-btn blue">切换侧边栏</button>
+      <button class="the-btn green">返回顶部</button>
+    </nav>
+    <section class="sidebar"></section>
+    <main class="content">
+      <div class="list"></div>
+      <div class="f-vc bottom-tips">滚动到底部加载更多</div>
+    </main>
+  </div>
+  <template class="waterfall-item">
+    <div class="list" style="position: fixed; top: -120%; left: -120%;">
+      <div class="item the-card">
+        <!-- <img src="https://game.gtimg.cn/images/lol/act/img/skinloading/106000.jpg" alt=""> -->
+        <div class="text">文字文字文字文字文字文字文字</div>
+      </div>
+    </div>
+  </template>
+  <script src="./js/waterfall.js"></script>
+</body>
+</html>
