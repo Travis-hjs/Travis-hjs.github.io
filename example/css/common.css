@@ -1,0 +1,91 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --blue: #409eff;
+  --green: #4caf50;
+  --red: #f44336;
+  --orange: orange;
+  --purple: #9e019e;
+  --grey: #999;
+  --theme-color: #328756;
+  --border-radius: 2px;
+  --text-shadow-bg: #333333;
+  --text-shadow-color: #ffde17;
+  --transition: .3s all;
+  --font-family: "Helvetica Neue", "Helvetica", "sans-serif", "微软雅黑";
+}
+
+html, body{
+	background-color: #fff;
+	color: #333;
+	font-family: var(--font-family);
+	/* 禁用系统长按菜单 */
+	-webkit-touch-callout: none; 
+	/* 禁用字体大小自动调整 */
+	-webkit-text-size-adjust: none !important;
+	/* 去掉点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+  /* ios滚动设置 */
+  -webkit-overflow-scrolling: touch;
+}
+
+a, a:visited, a:focus, a:hover, a:link, a:active { color: inherit; outline: none; text-decoration: none; }
+
+button, input, textarea {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  border-radius: 0;
+  font-size: inherit;
+  font-family: var(--font-family);
+}
+
+a, button {
+  cursor: pointer;
+}
+
+input::-webkit-input-placeholder { color: var(--grey); }
+button::after, input::after { border: none; }
+textarea { resize: none; display: block; }
+textarea::-webkit-input-placeholder { color: var(--grey); }
+
+div:focus {
+  outline: none;
+}
+
+/* flex布局 */
+.flex { display: flex; flex-wrap: nowrap; }
+.f-wrap { display: flex; flex-wrap: wrap; }
+.f1 { flex: 1; }
+.f2 { flex: 2; }
+.f3 { flex: 3; }
+/* 垂直居中 */
+.f-v { display: flex; align-items: center; }
+/* 水平居中 */
+.f-c { display: flex; justify-content: center; }
+/* 水平+垂直居中 */
+.f-vc { display: flex; align-items: center; justify-content: center; }
+/* 右对齐 */
+.f-right { display: flex; justify-content: flex-end; }
+/* 两端对齐 */
+.f-between { display: flex; justify-content: space-between; }
+/* 靠底部对齐 */
+.f-bottom { display: flex; align-items: flex-end; }
+
+/* 溢出...显示 当前节点生效 */
+.ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.ellipsis_1, .ellipsis_2, .ellipsis_3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 溢出...显示 子节点生效 */
+.ellipsis_1 { -webkit-line-clamp: 1; }
+.ellipsis_2 { -webkit-line-clamp: 2; }
+.ellipsis_3 { -webkit-line-clamp: 3; }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+  <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+  <title>计算工具</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <style>
+    .main {
+      padding: 10px;
+    }
+    .content {
+      width: 100%;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    .content .input-text {
+      width: 100%;
+      min-height: 22px;
+      line-height: 22px;
+      padding-left: 14px;
+      color: #555;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .content .input {
+      width: 100%;
+      height: 40px;
+      padding: 0 14px;
+      border: solid 1px var(--blue);
+      font-size: 16px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .content .value {
+      color: #555;
+      font-size: 18px;
+      padding-left: 14px;
+    }
+    .content .value b {
+      /* letter-spacing: 1px; */
+      color: var(--red);
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <section class="table-1"></section>
+    <section class="content">
+      <div class="input-text"></div>
+      <input class="input" type="number" placeholder="请输入净营业额">
+      <div class="value"></div>
+    </section>
+  </div>
+  <script src="./js/utils.js"></script>
+  <script src="./js/table.js"></script>
+  <script src="./js/count.js"></script>
+</body>
+</html>
