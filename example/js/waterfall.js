@@ -301,17 +301,68 @@ function waterfallVirtual(params) {
    * @param {typeof domDataList[0]} data 
    */
   function setElement(el, data) {
-    el.className = "item the-card";
-    el.style.width = `${data.width}px`;
-    el.style.height = `${data.height}px`;
-    el.style.transform = `translate3d(${data.left}px, ${data.top}px, 0)`;
-    el.id = `waterfall-item-${data.index}`;
-    el.dataset["index"] = data.index.toString();
-    el.dataset["column"] = data.columnIndex.toString();
-    el.innerHTML = `
-    <img src="${data.url}" style="height: ${data.imgHeight}px" alt="">
-    <div class="text">${data.content}</div>
-    `;
+    // TODO: 简单处理
+    // el.className = "item the-card";
+    // el.style.width = `${data.width}px`;
+    // el.style.height = `${data.height}px`;
+    // el.style.transform = `translate3d(${data.left}px, ${data.top}px, 0)`;
+    // el.id = `waterfall-item-${data.index}`;
+    // el.dataset["index"] = data.index.toString();
+    // el.dataset["column"] = data.columnIndex.toString();
+    // el.innerHTML = `
+    // <img src="${data.url}" style="height: ${data.imgHeight}px" alt="">
+    // <div class="text">${data.content}</div>
+    // `;
+    
+    // TODO: 最优处理，精准更新某个值，尤其是图片的 src 在手机上频繁设置想同值会闪烁
+    const className = "item the-card";
+    if (el.className !== className) {
+      el.className = className;
+    }
+    const width = `${data.width}px`;
+    if (el.style.width !== width) {
+      el.style.width = width;
+    }
+    const height = `${data.height}px`;
+    if (el.style.height !== height) {
+      el.style.height = height;
+    }
+    const transform = `translate3d(${data.left}px, ${data.top}px, 0)`;
+    if (el.style.transform !== transform) {
+      el.style.transform = transform;
+    }
+    // const id = `waterfall-item-${data.index}`;
+    // if (el.id !== id) {
+    //   el.id = id;
+    // }
+    const index = data.index.toString();
+    if (el.dataset["index"] !== index) {
+      el.dataset["index"] = index;
+    }
+    const column = data.columnIndex.toString();
+    if (el.dataset["column"] != column) {
+      el.dataset["column"] = column;
+    }
+    if (el.children.length) {
+      const image = el.children[0];
+      const text = el.children[1];
+      const { url, content } = data;
+      if (image.src != url) {
+        image.src = url;
+      }
+      const imgHeight = data.imgHeight + "px";
+      if (image.style.height !== imgHeight) {
+        image.style.height = imgHeight;
+      }
+      if (text.textContent !== content) {
+        text.textContent = content;
+      }
+    } else {
+      el.innerHTML = `
+      <img src="${data.url}" style="height: ${data.imgHeight}px" alt="">
+      <div class="text">${data.content}</div>
+      `;
+    }
     return el;
   }
 
