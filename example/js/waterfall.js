@@ -344,7 +344,7 @@ function waterfallVirtual(params) {
       el.dataset["column"] = column;
     }
     if (el.children.length) {
-      const image = el.children[0];
+      const image = /** @type {HTMLImageElement} */ (el.children[0]);
       const text = el.children[1];
       const { url, content } = data;
       if (image.src != url) {
