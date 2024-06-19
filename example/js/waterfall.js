@@ -371,12 +371,13 @@ function waterfallVirtual(params) {
     scroll.start = indexList[0];
     scroll.end = indexList[indexList.length - 1];
     /** 最大遍历次数 */
-    const max = Math.ceil(wrapSize.height / 100) * columnData.length; // TODO: 这里 100 是单个图片最小高度，也可以由外部传进来
+    // const max = Math.ceil(wrapSize.height / 100) * columnData.length; // TODO: 这里 100 是单个图片最小高度，也可以由外部传进来
+    const max = content.children.length;
     const maxEnd = scroll.end - max;
     const maxStart = scroll.start + max;
     scroll.startRange = maxStart > domDataList.length ? domDataList.length : maxStart;
     scroll.endRange = maxEnd < 0 ? 0 : maxEnd;
-    // console.log("scroll >>", scroll, max);
+    // console.log("scroll >>", scroll, max, renderMap);
   }
 
   function onScroll() {
@@ -404,21 +405,27 @@ function waterfallVirtual(params) {
       }
     }
 
-    // 全部遍历，性能不佳
-    // for (let i = 0; i < domDataList.length; i++) {
-    //   each(domDataList[i]);
-    // }
     computeScroll();
-    // 分上下区域遍历
-    if (isUp) {
-      for (let i = scroll.end; i >= scroll.endRange; i--) {
-        // console.log("向上滚动遍历次数");
+    // 特殊情况处理：
+    // 出现的情况：当鼠标摁住滚动条不放，且在非滚动条区间移动之后再漂回来滚动条时会触发；
+    // 估计是这个原因，小红书的实现就是把滚动条给隐藏了...
+    if (scroll.start === undefined) {
+      // console.log("特殊情况处理 >>", domDataList.length);
+      for (let i = 0; i < domDataList.length; i++) {
         each(domDataList[i]);
       }
     } else {
-      for (let i = scroll.start; i < scroll.startRange; i++) {
-        // console.log("向下滚动遍历次数");
-        each(domDataList[i]);
+      // 分上下区域遍历
+      if (isUp) {
+        for (let i = scroll.end; i >= scroll.endRange; i--) {
+          // console.log("向上滚动遍历次数");
+          each(domDataList[i]);
+        }
+      } else {
+        for (let i = scroll.start; i < scroll.startRange; i++) {
+          // console.log("向下滚动遍历次数");
+          each(domDataList[i]);
+        }
       }
     }
     // console.log("--------------------", renderMap, elementList);
