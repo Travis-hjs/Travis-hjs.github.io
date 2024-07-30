@@ -144,6 +144,7 @@ html, body{
 .page .column .title {
   width: 84px;
   font-weight: bold;
+  padding-right: 14px;
 }
 
 .page .column .paragraph {
@@ -203,6 +204,10 @@ html, body{
   content: "：";
   text-align: right;
 } */
+
+.page .top .info-box .label-tips {
+  font-size: 12px;
+}
 
 .page .top .link-box {
   display: grid;
