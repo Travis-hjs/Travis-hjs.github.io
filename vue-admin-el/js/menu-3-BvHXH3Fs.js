@@ -1,1 +1,0 @@
-import{_ as e}from"./index-C975u-3T.js";import{o as s,b as t,e as o}from"./vendor-B7Tgj0F6.js";const c={},n={class:"menu-3"},a=o("span",{class:"the-tag purple"},"menu-3",-1),r=[a];function _(m,d){return s(),t("div",n,r)}const f=e(c,[["render",_]]);export{f as default};
