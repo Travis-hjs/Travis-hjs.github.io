@@ -1,0 +1,1 @@
+const r=function(){let t=location.origin,e="dev",o="";return location.hostname==="test.com"&&(e="test",o="https://api.test.com",t="https://test.com"),location.hostname==="prod.com"&&(e="prod",o="https://api.prod.com",t="https://prod.com"),{get requestTimeout(){return 8e3},get apiUrl(){return o},get isDev(){return e==="dev"},get webUrl(){return t}}}();export{r as c};
