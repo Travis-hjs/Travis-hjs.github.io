@@ -1,1 +1,0 @@
-import{_ as e}from"./index-DxCtCNgh.js";import{b as o,o as s,e as t}from"./vendor-Bmv9FcY2.js";const a={name:"page-401"},c={class:"page-401"},n=t("div",null,"暂无权限访问",-1),r=[n];function _(p,u,d,i,f,l){return s(),o("div",c,r)}const h=e(a,[["render",_]]);export{h as default};
