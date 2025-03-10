@@ -1,0 +1,1 @@
+import{_ as e}from"./index-BviKljmW.js";import{d as o,e as s,g as t}from"./element-plus-BDbIiGck.js";const a={name:"page-401"},c={class:"page-401"},n=t("div",null,"暂无权限访问",-1),r=[n];function _(p,d,u,i,f,l){return s(),o("div",c,r)}const g=e(a,[["render",_]]);export{g as default};
