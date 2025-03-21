@@ -45,11 +45,17 @@
       overflow: hidden;
     }
 
-    .page .input {
-      display: block;
+    .page .input-box {
+      overflow: hidden;
       border-bottom: solid 1px #fff;
       height: 100%;
+    }
+
+    .page .input {
+      display: block;
+      width: 100%;
       line-height: 1;
+      padding-left: 4px;
     }
 
     .page .result-btn {
@@ -72,15 +78,21 @@
   <main class="page">
     <div class="item-box f-v">
       <div class="label gray-text">油耗(100km/L)</div>
-      <input class="f1 input value white-text" type="number" placeholder="请输入油耗" />
+      <div class="input-box f1 f-v">
+        <input class="input value white-text" type="number" placeholder="请输入油耗" />
+      </div>
     </div>
     <div class="item-box f-v">
       <div class="label gray-text">油价(元/L)</div>
-      <input class="f1 input value white-text" type="number" placeholder="请输入油价" />
+      <div class="input-box f1 f-v">
+        <input class="input value white-text" type="number" placeholder="请输入油价" />
+      </div>
     </div>
     <div class="item-box f-v">
       <div class="label gray-text">行驶公里数</div>
-      <input class="f1 input value white-text" type="number" placeholder="请输入公里数" />
+      <div class="input-box f1 f-v">
+        <input class="input value white-text" type="number" placeholder="请输入公里数" />
+      </div>
     </div>
     <div class="item-box f-v">
       <div class="label gray-text">每公里花费</div>
