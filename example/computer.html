@@ -11,45 +11,59 @@
       background-color: #000;
     }
     .page {
+      --text-size: 22px;
+      --text-max: 30px;
+
       padding: 20px 16px;
     }
-    .gray-text {
+
+    .page .gray-text {
       color: #8d8d93;
     }
-    .orange-text {
+
+    .page .orange-text {
       color: #ff9f0a;
     }
-    .white-text {
+
+    .page .white-text {
       color: #fff;
     }
-    .label {
-      font-size: 24px;
-      width: 180px;
+
+    .page .label {
+      font-size: var(--text-size);
+      min-width: 160px;
     }
-    .value {
-      font-size: 32px;
+
+    .page .value {
+      font-size: var(--text-max);
     }
-    .item-box {
+
+    .page .item-box {
+      width: 100%;
       height: 60px;
-      padding: 0 16px;;
       margin-bottom: 16px;
+      overflow: hidden;
     }
-    .input {
+
+    .page .input {
+      display: block;
       border-bottom: solid 1px #fff;
       height: 100%;
       line-height: 1;
     }
-    .result-btn {
+
+    .page .result-btn {
       width: 100%;
       height: 60px;
       background-color: #ff9f0a;
       color: #fff;
-      font-size: 24px;
+      font-size: var(--text-size);
       border: none;
       border-radius: 8px;
       line-height: 1;
     }
-    .result-btn:active {
+
+    .page.result-btn:active {
       opacity: 0.86;
     }
   </style>
@@ -57,12 +71,12 @@
 <body>
   <main class="page">
     <div class="item-box f-v">
-      <div class="label gray-text">油耗</div>
-      <input class="f1 input value white-text" type="number" placeholder="请输入油耗(100km/L)" />
+      <div class="label gray-text">油耗(100km/L)</div>
+      <input class="f1 input value white-text" type="number" placeholder="请输入油耗" />
     </div>
     <div class="item-box f-v">
-      <div class="label gray-text">油价</div>
-      <input class="f1 input value white-text" type="number" placeholder="请输入油价(元/L)" />
+      <div class="label gray-text">油价(元/L)</div>
+      <input class="f1 input value white-text" type="number" placeholder="请输入油价" />
     </div>
     <div class="item-box f-v">
       <div class="label gray-text">行驶公里数</div>
@@ -76,7 +90,9 @@
       <div class="label gray-text">总共行驶花费</div>
       <div class="value orange-text total-price"></div>
     </div>
-    <button class="result-btn" onclick="getResult()">获取结果</button>
+    <div style="padding-top: 20px;">
+      <button class="result-btn" onclick="getResult()">计算结果</button>
+    </div>
   </main>
   <script>
     /**
