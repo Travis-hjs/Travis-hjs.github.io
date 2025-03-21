@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+  <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+  <title>油价计算器</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <style>
+    body {
+      background-color: #000;
+    }
+    .page {
+      padding: 20px 16px;
+    }
+    .gray-text {
+      color: #8d8d93;
+    }
+    .orange-text {
+      color: #ff9f0a;
+    }
+    .white-text {
+      color: #fff;
+    }
+    .label {
+      font-size: 24px;
+      width: 180px;
+    }
+    .value {
+      font-size: 32px;
+    }
+    .item-box {
+      height: 60px;
+      padding: 0 16px;;
+      margin-bottom: 16px;
+    }
+    .input {
+      border-bottom: solid 1px #fff;
+      height: 100%;
+      line-height: 1;
+    }
+    .result-btn {
+      width: 100%;
+      height: 60px;
+      background-color: #ff9f0a;
+      color: #fff;
+      font-size: 24px;
+      border: none;
+      border-radius: 8px;
+      line-height: 1;
+    }
+    .result-btn:active {
+      opacity: 0.86;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="item-box f-v">
+      <div class="label gray-text">油耗</div>
+      <input class="f1 input value white-text" type="number" placeholder="请输入油耗(100km/L)" />
+    </div>
+    <div class="item-box f-v">
+      <div class="label gray-text">油价</div>
+      <input class="f1 input value white-text" type="number" placeholder="请输入油价(元/L)" />
+    </div>
+    <div class="item-box f-v">
+      <div class="label gray-text">行驶公里数</div>
+      <input class="f1 input value white-text" type="number" placeholder="请输入公里数" />
+    </div>
+    <div class="item-box f-v">
+      <div class="label gray-text">每公里花费</div>
+      <div class="value orange-text unit-price"></div>
+    </div>
+    <div class="item-box f-v">
+      <div class="label gray-text">总共行驶花费</div>
+      <div class="value orange-text total-price"></div>
+    </div>
+    <button class="result-btn" onclick="getResult()">获取结果</button>
+  </main>
+  <script>
+    /**
+     * @type {NodeListOf<HTMLInputElement>}
+     */
+    const inputs = document.querySelectorAll(".input");
+    /**
+     * 单价
+     * @type {HTMLElement}
+     */
+    const unitPrice = document.querySelector(".unit-price");
+    /**
+     * 总价
+     * @type {HTMLElement}
+     */
+    const totalPrice = document.querySelector(".total-price");
+    
+    function getResult() {
+      const oil = inputs[0].value;
+      const price = inputs[1].value;
+      const distance = inputs[2].value;
+      if (!oil || !price) return alert("请输入油耗和油价");
+      let res = Number(oil) / 100 * Number(price);
+      unitPrice.textContent = `${res.toFixed(2)} (元/km)`;
+      if (distance) {
+        totalPrice.textContent = `${(res * Number(distance)).toFixed(2)} (元)`;
+      } else {
+        totalPrice.textContent = "";
+      }
+    }
+  </script>
+</body>
+</html>
