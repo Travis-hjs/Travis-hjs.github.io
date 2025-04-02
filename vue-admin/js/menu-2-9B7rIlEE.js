@@ -1,0 +1,1 @@
+import{_ as e}from"./index-C2muFIBk.js";import{a as s,o as t,b as o}from"./vendor-DAP4FNWh.js";const c={},n={class:"menu-2"},a=o("span",{class:"the-tag green"},"menu-2",-1),r=[a];function _(m,d){return t(),s("div",n,r)}const l=e(c,[["render",_]]);export{l as default};
