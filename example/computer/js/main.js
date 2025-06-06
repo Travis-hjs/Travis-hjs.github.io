@@ -1,4 +1,4 @@
-(function() {
+(function () {
   /**
    * @type {NodeListOf<HTMLInputElement>}
    */
@@ -18,7 +18,7 @@
   /**
    * @type {{ oil: string; price: string; distance: string }}
    */
-  const cacheInfo = (function() {
+  const cacheInfo = (function () {
     const val = localStorage.getItem(cacheKey);
     if (typeof val === "string") {
       return JSON.parse(val);
@@ -55,14 +55,14 @@
     } else {
       totalPrice.textContent = "";
     }
-    saveCache({ oil, price, distance});
+    saveCache({ oil, price, distance });
   }
 
   if (cacheInfo) {
     inputs[0].value = cacheInfo.oil;
     inputs[1].value = cacheInfo.price;
     inputs[2].value = cacheInfo.distance;
-   onResult();
+    onResult();
   }
 
   document.querySelector(".result-btn").onclick = onResult;
