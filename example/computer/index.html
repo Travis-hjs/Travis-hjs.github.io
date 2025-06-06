@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+  <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+  <title>油价计算器</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <main class="page">
+    <div class="item-box f-v">
+      <div class="label gray-text">油耗(100km/L)</div>
+      <div class="input-box f1 f-v">
+        <input class="input value white-text" type="number" placeholder="请输入油耗" />
+      </div>
+    </div>
+    <div class="item-box f-v">
+      <div class="label gray-text">油价(元/L)</div>
+      <div class="input-box f1 f-v">
+        <input class="input value white-text" type="number" placeholder="请输入油价" />
+      </div>
+    </div>
+    <div class="item-box f-v">
+      <div class="label gray-text">行驶公里数</div>
+      <div class="input-box f1 f-v">
+        <input class="input value white-text" type="number" placeholder="请输入公里数" />
+      </div>
+    </div>
+    <div class="item-box f-v">
+      <div class="label gray-text">每公里花费</div>
+      <div class="value orange-text unit-price">
+        <span>??</span>
+        <span>(元/km)</span>
+      </div>
+    </div>
+    <div class="item-box f-v">
+      <div class="label gray-text">总行驶花费</div>
+      <div class="value orange-text total-price">
+        <span>??</span>
+        <span>(元)</span>
+      </div>
+    </div>
+    <div class="f-v" style="padding-top: 20px;">
+      <button class="the-btn plain reset-btn">重 置</button>
+      <button class="the-btn f1 result-btn">计算结果</button>
+    </div>
+  </main>
+  <script src="./js/main.js"></script>
+</body>
+</html>

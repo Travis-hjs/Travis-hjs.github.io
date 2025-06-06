@@ -1,0 +1,96 @@
+body {
+  --text-size: 22px;
+  --text-max: 30px;
+  --item-height: 60px;
+  --label-width: 160px;
+  --transition: 0.3s all;
+  --theme: #ff9f0a;
+
+  background-color: #000;
+}
+
+.page {
+  padding: 20px;
+}
+
+.page .gray-text {
+  color: #8d8d93;
+}
+
+.page .orange-text {
+  color: var(--theme);
+}
+
+.page .white-text {
+  color: #fff;
+}
+
+.page .label {
+  font-size: var(--text-size);
+  min-width: var(--label-width);
+}
+
+.page .value {
+  font-size: var(--text-max);
+}
+
+.page .item-box {
+  width: 100%;
+  height: var(--item-height);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.page .item-box .input-box {
+  overflow: hidden;
+  border-bottom: solid 1px #eee;
+  height: 100%;
+}
+
+.page .item-box .input {
+  display: block;
+  width: 100%;
+  line-height: 1;
+  padding-left: 4px;
+}
+
+.page .the-btn {
+  width: 100%;
+  height: var(--item-height);
+  background-color: var(--theme);
+  color: #fff;
+  font-size: var(--text-size);
+  border: none;
+  border-radius: 8px;
+  line-height: 1;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.page .the-btn.plain {
+  background-color: transparent;
+  color: var(--theme);
+  border: solid 2px var(--theme);
+}
+
+.page.the-btn:active {
+  opacity: 0.86;
+}
+
+.page .reset-btn {
+  width: calc(var(--label-width) - 20px);
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    --text-size: 18px;
+    --text-max: 24px;
+    --item-height: 50px;
+    --label-width: 136px;
+  }
+
+  .page {
+    padding: 20px 12px;
+  }
+
+}
