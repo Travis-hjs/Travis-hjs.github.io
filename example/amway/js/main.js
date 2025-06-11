@@ -1,6 +1,6 @@
 // 类型提示用（运行时不会引用）
-/// <reference path="./table.js" />
-/// <reference path="./utils.js" />
+/// <reference path="../../utils/table.js" />
+/// <reference path="../../utils.js" />
 
 (function () {
   const tableData = [
@@ -16,7 +16,12 @@
 
   createTable({
     el: find(".table-1"),
-    data: tableData.map(item => ({ pv: formatNumber(item.pv), netRevenue: formatNumber(item.netRevenue), rate: item.rate + "%", voucher: item.voucher + "%" })),
+    data: tableData.map(item => ({
+      pv: formatNumber(item.pv),
+      netRevenue: formatNumber(item.netRevenue),
+      rate: item.rate + "%",
+      voucher: item.voucher + "%"
+    })),
     columns: [
       { label: "PV(销售指数)", prop: "pv", },
       { label: "净营业额", prop: "netRevenue", },
@@ -24,6 +29,7 @@
       { label: "电子券比率", prop: "voucher", },
     ]
   });
+
   /**
    * 获取单个奖金
    * @param {number} value 
@@ -33,7 +39,7 @@
     let price = -1;
     let voucher = 0;
     let rate = 0;
-    value = value < tableData[0].netRevenue ?  tableData[0].netRevenue : value;
+    value = value < tableData[0].netRevenue ? tableData[0].netRevenue : value;
     while (price === -1) {
       const item = tableData[index];
       if (value >= item.netRevenue) {
@@ -55,7 +61,7 @@
   const elInput = find(".input");
   const elInputText = find(".input-text");
 
-  elInput.addEventListener("input", function() {
+  elInput.addEventListener("input", function () {
     const maxNum = 999999999999999;
     let number = Number(elInput.value);
     // console.log(number);
@@ -71,5 +77,5 @@
     } else {
       elValue.innerHTML = elInputText.textContent = "";
     }
-  })
+  });
 })();
