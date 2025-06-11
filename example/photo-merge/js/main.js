@@ -22,7 +22,7 @@
    * @param {File | Blob} target 目标对象
    * @returns {Promise<string>}
    */
-  function blobOrFlieToBase64(target) {
+  function blobOrFileToBase64(target) {
     return new Promise(function (resolve, reject) {
       const reader = new FileReader();
       reader.onload = function () {
@@ -30,7 +30,7 @@
       }
       reader.onerror = function () {
         console.warn("reader error >>", reader.error);
-        reject(new Error("blobOrFlieToBase64 error"));
+        reject(new Error("blobOrFileToBase64 error"));
       }
       reader.readAsDataURL(target);
     })
@@ -58,7 +58,7 @@
      * @param {File} file
      */
     function setBase64(index, file) {
-      blobOrFlieToBase64(file).then(base64 => {
+      blobOrFileToBase64(file).then(base64 => {
         listBase64[index] = base64;
         count++;
         if (count >= total) {
@@ -77,7 +77,7 @@
 
     // const file = el.files[0];
 
-    // blobOrFlieToBase64(file).then(base64 => {
+    // blobOrFileToBase64(file).then(base64 => {
     //   el.value = "";
     //   const item = document.createElement("div");
     //   item.className = "item";
@@ -123,7 +123,7 @@
   function downloadByLink(link) {
     const label = document.createElement("a");
     label.href = link;
-    label.download = "合成图片.jpg";
+    label.download = `合成图片-${Date.now()}.jpg`;
     label.click();
   }
 
@@ -141,5 +141,4 @@
   for (const key in global) {
     window[key] = global[key];
   }
-
 })();
