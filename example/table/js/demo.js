@@ -1,7 +1,7 @@
 // 类型提示用（运行时不会引用）
-/// <reference path="./utils.js" />
-/// <reference path="./table.js" />
-/// <reference path="./excel.js" />
+/// <reference path="../js/utils.js" />
+/// <reference path="../js/table.js" />
+/// <reference path="./main.js" />
 
 let id = 0;
 

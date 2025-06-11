@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原生表格导出功能</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <style>
+    .btn {
+      background-color: var(--blue);
+      color: #fff;
+      font-size: 14px;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 2px;
+      line-height: 1;
+      transition: 0.2s all;
+    }
+    .btn + .btn {
+      margin-left: 14px;
+    }
+    .btn:active {
+      opacity: 0.8;
+    }
+    .btn.green {
+      background-color: var(--green);
+    }
+    .top {
+      text-align: center;
+      padding: 10px;
+      font-size: 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <button class="btn" onclick="setTableData()">添加表格数据</button>
+    <button class="btn" onclick="setTableData(true)">重新获取数据</button>
+    <button class="btn green" onclick="download()">导出表格</button>
+    <button class="btn green" onclick="download(true)">导出表格-带自定义头部</button>
+  </header>
+  <script src="../js/utils.js"></script>
+  <script src="../js/table.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/demo.js"></script>
+</body>
+</html>
