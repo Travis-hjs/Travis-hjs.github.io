@@ -1,0 +1,54 @@
+.app {
+  padding: 26vh 2vw 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.bottom .target {
+  width: 100px;
+  height: 32px;
+  border-radius: 46%;
+}
+
+.bottom .target.blue {
+  background-color: var(--blue);
+}
+
+.bottom .target.green {
+  background-color: var(--green);
+}
+
+.ball {
+  --duration: 0.5s;
+  --x-distance: 300px;
+  --y-distance: 400px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  animation: parabola-x var(--duration) linear;
+  z-index: 2;
+  /* border: dashed 1px var(--red); */
+}
+
+.ball .inner {
+  width: 100%;
+  height: 100%;
+  background-color: var(--purple);
+  border-radius: 50%;
+  animation: parabola-y var(--duration) cubic-bezier(0.5, -1, 1, 1);
+}
+
+@keyframes parabola-x {
+  to {
+    transform: translate3d(var(--x-distance), 0, 0);
+  }
+}
+
+@keyframes parabola-y {
+  to {
+    transform: translate3d(0, var(--y-distance), 0);
+  }
+}
