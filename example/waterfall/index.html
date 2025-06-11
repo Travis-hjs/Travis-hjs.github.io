@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <title>瀑布流 + 虚拟列表</title>
+</head>
+<body>
+  <div class="layout">
+    <nav class="header f-v f-between">
+      <button class="the-btn blue">切换侧边栏</button>
+      <button class="the-btn green">返回顶部</button>
+    </nav>
+    <section class="sidebar"></section>
+    <main class="content">
+      <div class="list"></div>
+      <div class="f-vc bottom-tips">滚动到底部加载更多</div>
+    </main>
+  </div>
+  <template class="waterfall-item">
+    <div class="list" style="position: fixed; top: -120%; left: -120%;">
+      <div class="item the-card">
+        <!-- <img src="https://game.gtimg.cn/images/lol/act/img/skinloading/106000.jpg" alt=""> -->
+        <div class="text">文字文字文字文字文字文字文字</div>
+      </div>
+    </div>
+  </template>
+  <script src="./js/main.js"></script>
+</body>
+</html>

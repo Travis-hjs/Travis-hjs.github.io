@@ -1,0 +1,79 @@
+.layout {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #eee;
+  --nav-height: 50px;
+  --sidebar-width: 210px;
+  --blue: #1677ff;
+  --dark-blue: #001529;
+  --padding: 12px;
+  --transition: .3s all;
+  padding-top: calc(var(--nav-height) + var(--padding));
+  padding-left: calc(var(--sidebar-width) + var(--padding));
+  padding-right: var(--padding);
+}
+
+.layout .header {
+  width: calc(100% - var(--sidebar-width));
+  position: fixed;
+  top: 0;
+  height: var(--nav-height);
+  left: var(--sidebar-width);
+  transition: var(--transition);
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15px);
+  padding: 0 var(--padding);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.layout .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--sidebar-width);
+  background-color: var(--dark-blue);
+  transition: var(--transition);
+  z-index: 9;
+}
+
+.layout .content {
+  width: 100%;
+  transition: var(--transition);
+  padding: var(--padding);
+  min-height: calc(100vh - var(--nav-height) - var(--padding) - var(--padding));
+  background-color: #fff;
+}
+
+.list {
+  position: relative;
+}
+
+.list .item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  /* width: 300px; */
+  /* transition: var(--transition); */
+}
+
+.list .item .text {
+  padding: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+}
+
+.list .item img {
+  display: block;
+  width: 100%;
+}
+
+.bottom-tips {
+  width: 100%;
+  height: 80px;
+  font-size: 15px;
+  color: var(--gary);
+}
