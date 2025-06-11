@@ -1,10 +1,6 @@
+/// <reference path="../../utils.js" />
+
 (function () {
-  /**
-   * 查找单个街道
-   * @param {string} name 
-   * @returns {HTMLElement}
-   */
-  const $ = name => document.querySelector(name);
   /**
    * 图片前缀
    * [图片来源](https://lol.qq.com/data/info-heros.shtml)
@@ -18,25 +14,31 @@
     {
       name: "刀锋之影-泰隆",
       image: photoPrefix + "/champion/Talon.png",
-    }, {
+    },
+    {
       name: "德玛西亚之翼-奎因",
       image: photoPrefix + "/champion/Quinn.png",
-    }, {
+    },
+    {
       name: "猩红收割者-弗拉基米尔",
       image: photoPrefix + "/champion/Vladimir.png",
-    }, {
+    },
+    {
       name: "琴瑟仙女-娑娜",
       image: photoPrefix + "/champion/Sona.png",
-    }, {
+    },
+    {
       name: "影流之主-劫",
       image: photoPrefix + "/champion/Zed.png",
-    }, {
+    },
+    {
       name: "赏金猎人-厄运小姐",
       image: photoPrefix + "/champion/MissFortune.png",
-    }, {
+    },
+    {
       name: "光辉女郎-拉克丝",
       image: photoPrefix + "/champion/Lux.png",
-    }
+    },
   ];
   const bgList = [
     photoPrefix + "/skinloading/106000.jpg",
@@ -45,8 +47,8 @@
     photoPrefix + "/skinloading/111000.jpg",
     photoPrefix + "/skinloading/112000.jpg",
     photoPrefix + "/skinloading/113000.jpg",
-    photoPrefix + "/skinloading/114000.jpg"
-  ]
+    photoPrefix + "/skinloading/114000.jpg",
+  ];
 
   /**
    * 懒加载
@@ -78,12 +80,12 @@
       el.src = el.getAttribute(attr);
       el.onerror = function () {
         el.src = params.errorPath || cache;
-      }
+      };
     }
 
     /**
      * 加载单个节点
-     * @param {HTMLElement} el 
+     * @param {HTMLElement} el
      */
     function loadElement(el) {
       switch (type) {
@@ -98,10 +100,10 @@
       observer.unobserve(el);
     }
 
-    /** 
-     * 监听器 
+    /**
+     * 监听器
      * [MDN说明](https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver)
-    */
+     */
     const observer = new IntersectionObserver(function (entries) {
       for (let i = 0; i < entries.length; i++) {
         const item = entries[i];
@@ -109,23 +111,23 @@
           loadElement(item.target);
         }
       }
-    })
+    });
 
     update();
 
     return {
       observer,
-      update
-    }
+      update,
+    };
   }
 
   const lazySrc = lazyLoad({
-    lazyAttr: "lazy-src"
+    lazyAttr: "lazy-src",
   });
 
   const lazyBg = lazyLoad({
     lazyAttr: "lazy-bg",
-    loadType: "background"
+    loadType: "background",
   });
 
   function outputItem() {
@@ -141,7 +143,7 @@
       box.appendChild(image);
       images.push(box);
     }
-    $(".src-list").append(...images);
+    find(".src-list").append(...images);
     const els = [];
     for (let i = 0; i < bgList.length; i++) {
       const bg = bgList[i];
@@ -151,10 +153,10 @@
       lazyBg.observer.observe(box);
       els.push(box);
     }
-    $(".bg-list").append(...els);
+    find(".bg-list").append(...els);
   }
 
   window.onload = function () {
     outputItem();
-  }
+  };
 })();
