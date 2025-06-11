@@ -1,18 +1,24 @@
 (function () {
   /**
-   * @type {NodeListOf<HTMLInputElement>}
+   * 查找单个元素
+   * @param {string} name 
+   * @returns {HTMLElement}
    */
-  const inputs = document.querySelectorAll(".input");
+  const find = name => document.querySelector(name);
+  /**
+   * @type {Array<HTMLInputElement>}
+   */
+  const inputs = Array.from(document.querySelectorAll(".input"));
   /**
    * 单价
    * @type {HTMLElement}
    */
-  const unitPrice = document.querySelector(".unit-price span");
+  const unitPrice = find(".unit-price span");
   /**
    * 总价
    * @type {HTMLElement}
    */
-  const totalPrice = document.querySelector(".total-price span");
+  const totalPrice = find(".total-price span");
   /** 缓存键值 */
   const cacheKey = "price-record";
   /**
@@ -35,10 +41,7 @@
   }
 
   function onReset() {
-    for (let i = 0; i < inputs.length; i++) {
-      const input = inputs[i];
-      input.value = "";
-    }
+    inputs.forEach(input => (input.value = ""));
     unitPrice.textContent = totalPrice.textContent = "??";
     localStorage.removeItem(cacheKey);
   }
@@ -65,6 +68,9 @@
     onResult();
   }
 
-  document.querySelector(".result-btn").onclick = onResult;
-  document.querySelector(".reset-btn").onclick = onReset;
+  find(".result-btn").addEventListener("click", onResult);
+  find(".reset-btn").addEventListener("click", onReset);
+  inputs.forEach(input => {
+    input.addEventListener("keypress", e => e.key === "Enter" && onResult());
+  });
 })();

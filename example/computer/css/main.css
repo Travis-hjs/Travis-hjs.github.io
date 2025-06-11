@@ -60,21 +60,19 @@ body {
   background-color: var(--theme);
   color: #fff;
   font-size: var(--text-size);
-  border: none;
   border-radius: 8px;
-  line-height: 1;
   font-weight: bold;
   letter-spacing: 1px;
+}
+
+.page .the-btn:active {
+  transform: scale(0.96);
 }
 
 .page .the-btn.plain {
   background-color: transparent;
   color: var(--theme);
   border: solid 2px var(--theme);
-}
-
-.page.the-btn:active {
-  opacity: 0.86;
 }
 
 .page .reset-btn {
