@@ -1,1 +1,0 @@
-import{_ as e}from"./index-DUj2OIu1.js";import{h as o,i as s,p as t}from"./element-plus-DM0gVeuf.js";const a={name:"page-401"},c={class:"page-401"},n=t("div",null,"暂无权限访问",-1),r=[n];function _(p,i,u,d,f,l){return s(),o("div",c,r)}const B=e(a,[["render",_]]);export{B as default};
