@@ -1,0 +1,1 @@
+import{_ as o}from"./index-C_bH1vCy.js";import{h as s,i as t,p as a}from"./element-plus-q5-fTtZa.js";const r={name:"page-401"},n={class:"page-401"};function p(c,e,u,i,_,d){return t(),s("div",n,[...e[0]||(e[0]=[a("div",null,"暂无权限访问",-1)])])}const m=o(r,[["render",p]]);export{m as default};

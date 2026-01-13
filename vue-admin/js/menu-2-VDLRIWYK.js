@@ -1,0 +1,1 @@
+import{d as t,g as a,F as r,s as o,a as s,h as c,t as l,x as p}from"./vendor-CXPWdb6f.js";const i={class:"menu-2"},g=t({__name:"menu-2",setup(m){const n=["green","blue","gray","red","orange","purple","cyan"];return(u,_)=>(s(),a("div",i,[(s(),a(r,null,o(n,e=>c("span",{key:e,class:p(["the-tag",e])},l(e),3)),64))]))}});export{g as default};

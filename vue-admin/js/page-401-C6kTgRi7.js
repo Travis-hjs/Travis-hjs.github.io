@@ -1,0 +1,1 @@
+import{_ as o}from"./index-CrqFMLCv.js";import{g as s,a as t,h as a}from"./vendor-CXPWdb6f.js";const r={name:"page-401"},n={class:"page-401"};function p(c,e,u,_,d,i){return t(),s("div",n,[...e[0]||(e[0]=[a("div",null,"暂无权限访问",-1)])])}const m=o(r,[["render",p]]);export{m as default};
