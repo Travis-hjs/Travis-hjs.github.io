@@ -1,0 +1,1 @@
+import{A as e,U as t,V as n,_ as r,b as i,k as a,p as o,w as s}from"./vendor-aFqMcHTB.js";var c={class:`menu-2`},l=s({__name:`menu-2`,setup(s){let l=[`green`,`blue`,`gray`,`red`,`orange`,`purple`,`cyan`];return(s,u)=>(a(),i(`div`,c,[(a(),i(o,null,e(l,e=>r(`span`,{key:e,class:n([`the-tag`,e])},t(e),3)),64))]))}});export{l as default};
