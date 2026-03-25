@@ -1,0 +1,1 @@
+import{_ as e,b as t,k as n}from"./vendor-aFqMcHTB.js";import{t as r}from"./plugin-vue-export-helper-BiICrpK0.js";var i={},a={class:`menu-3`};function o(r,i){return n(),t(`div`,a,[...i[0]||=[e(`span`,{class:`the-tag purple`},`menu-3`,-1)]])}var s=r(i,[[`render`,o]]);export{s as default};
