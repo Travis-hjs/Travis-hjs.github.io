@@ -70,6 +70,7 @@
 
   find(".result-btn").addEventListener("click", onResult);
   find(".reset-btn").addEventListener("click", onReset);
+  
   inputs.forEach(input => {
     input.addEventListener("keypress", e => e.key === "Enter" && onResult());
   });
