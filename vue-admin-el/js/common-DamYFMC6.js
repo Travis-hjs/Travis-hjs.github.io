@@ -1,4 +1,4 @@
-import{At as e,Dt as t,_t as n,vt as r}from"./ui-DsAx3Wg7.js";function i(e={}){let t=document,n=`__${Math.random().toString(36).slice(2,7)}`,r={item:`msg-item${n}`,box:`msg-box${n}`,hide:`hide${n}`,text:`msg-text${n}`,icon:`msg-icon${n}`},i=t.createElement(`style`);i.textContent=`
+import{At as e,Dt as t,_t as n,vt as r}from"./ui-CUdWs3mQ.js";function i(e={}){let t=document,n=`__${Math.random().toString(36).slice(2,7)}`,r={item:`msg-item${n}`,box:`msg-box${n}`,hide:`hide${n}`,text:`msg-text${n}`,icon:`msg-icon${n}`},i=t.createElement(`style`);i.textContent=`
   .${r.item}, ${r.box}, .${r.icon}, .${r.text} {
     padding: 0;
     margin: 0;
@@ -140,7 +140,8 @@ import{At as e,Dt as t,_t as n,vt as r}from"./ui-DsAx3Wg7.js";function i(e={}){l
     --transition: .3s all;
     --black: #333;
     --text-color: #555;
-    --confirm-bg: #2ec1cb;
+    --confirm-bg: var(--blue);
+    --border-radius: 2px;
     position: fixed;
     top: 0;
     left: 0;
@@ -179,6 +180,8 @@ import{At as e,Dt as t,_t as n,vt as r}from"./ui-DsAx3Wg7.js";function i(e={}){l
     color: var(--text-color);
     text-align: left;
     line-height: 20px;
+    max-height: 80vh;
+    overflow: auto;
   }
   .${n.footer} {
     width: 100%;
