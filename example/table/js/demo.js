@@ -40,9 +40,6 @@ function useTableData(length = 10) {
 
 const tableData = useTableData();
 
-/**
- * @type ReturnType<typeof createTable>
- */
 const table = createTable({
   el: document.body,
   data: tableData,
