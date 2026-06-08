@@ -4,7 +4,7 @@
  * @param {object} option
  * @param {HTMLElement} option.el 表格挂载的节点
  * @param {Array<T>} option.data 表格数据
- * @param {Array<{ label: string, prop: string, width?: string, minWidth?: string, slot?: (row: T, index: number) => string | HTMLElement }>} option.columns 表格列配置
+ * @param {Array<{ label: string, prop: string, width?: string, minWidth?: string, render?: (row: T, index: number) => string | HTMLElement }>} option.columns 表格列配置
  * @param {Array<{ text: string | (row: T) => string, click?: (row: T, index: number) => void, disabled?: boolean | (row: T) => boolean, className?: string }>} option.actions 操作列表，当`option.columns`中存在`prop: "actions"`时生效
  */
 function createTable(option) {
@@ -183,8 +183,8 @@ function createTable(option) {
         if (btnEls.length) {
           columnEl.append(...btnEls);
         } else {
-          if (typeof column.slot === "function") {
-            const value = column.slot(row, rowIndex);
+          if (typeof column.render === "function") {
+            const value = column.render(row, rowIndex);
             if (typeof value === "string") {
               columnEl.innerHTML = value || "-";
             }
