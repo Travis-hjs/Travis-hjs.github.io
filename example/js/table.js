@@ -4,8 +4,8 @@
  * @param {object} option
  * @param {HTMLElement} option.el 表格挂载的节点
  * @param {Array<T>} option.data 表格数据
- * @param {Array<{ label: string, prop: string, width?: string, minWidth?: string, render?: (row: T, index: number) => string | HTMLElement }>} option.columns 表格列配置
- * @param {Array<{ text: string | (row: T) => string, click?: (row: T, index: number) => void, disabled?: boolean | (row: T) => boolean, className?: string }>} option.actions 操作列表，当`option.columns`中存在`prop: "actions"`时生效
+ * @param {Array<{ label: string; prop: string; width?: string; minWidth?: string; render?: (row: T, index: number) => string | HTMLElement }>} option.columns 表格列配置
+ * @param {Array<{ text: string | ((row: T, index: number) => string); click?: (row: T, index: number) => void; disabled?: boolean | ((row: T) => boolean); className?: string }>} option.actions 操作列表，当`option.columns`中存在`prop: "actions"`时生效
  */
 function createTable(option) {
   const styleId = "the-table-style";
@@ -100,21 +100,23 @@ function createTable(option) {
     style.textContent = cssText;
     document.head.appendChild(style);
   }
+
+  const map = {
+    table: { class: "the-table", tag: "table" },
+    header: { class: "the-table-header", tag: "thead" },
+    body: { class: "the-table-body", tag: "tbody" },
+    row: { class: "", tag: "tr" },
+    column: { class: "", tag: "td" },
+    tcolumn: { class: "", tag: "th" },
+    btn: { class: "the-table-btn", tag: "button" }
+  }
+
   /**
    * 创建表格元素
-   * @param {"table"|"header"|"body"|"row"|"column"|"tcolumn"|"btn"} type 
+   * @param {keyof typeof map} type 
    * @param {CSSStyleDeclaration=} styles 要设置的样式
    */
   function createElement(type, styles) {
-    const map = {
-      table: { class: "the-table", tag: "table" },
-      header: { class: "the-table-header", tag: "thead" },
-      body: { class: "the-table-body", tag: "tbody" },
-      row: { class: "", tag: "tr" },
-      column: { class: "", tag: "td" },
-      tcolumn: { class: "", tag: "th" },
-      btn: { class: "the-table-btn", tag: "button" }
-    }
     const el = document.createElement(map[type].tag);
     map[type].class && (el.className = map[type].class);
     if (styles) {
@@ -133,7 +135,7 @@ function createTable(option) {
   
   /**
    * 获取表格栏的宽度样式
-   * @param {{ width?: string, minWidth?: string }} column 
+   * @param {{ width?: string; minWidth?: string }} column 
    */
   function getStyle(column) {
     return {
@@ -169,7 +171,7 @@ function createTable(option) {
       const columnEls = option.columns.map(column => {
         const columnEl = createElement("column", getStyle(column));
         let btnEls = [];
-        if (column.prop === "actions") {
+        if (column.prop === "actions" && option.actions) {
           btnEls = option.actions.map((btn, bIndex) => {
             const btnEl = createElement("btn");
             btn.className && btnEl.classList.add(btn.className);
@@ -206,7 +208,7 @@ function createTable(option) {
       _tableData = _tableData.concat(tableData);
     } else {
       _tableData = tableData;
-      tableBody.innerHTML = ""
+      tableBody.innerHTML = "";
     }
     tableBody.append(...rowEls);
   }
@@ -216,14 +218,15 @@ function createTable(option) {
   renderBody(option.data);
 
   table.addEventListener("click", e => {
-    if (e.target.tagName && e.target.tagName.toLocaleLowerCase() === "button") {
-      /** @type {HTMLButtonElement} */
-      const btn = e.target;
+    /** @type {HTMLButtonElement} */
+    const btn = e.target;
+    if (btn && btn.tagName && btn.tagName.toLocaleLowerCase() === "button") {
       const rowIndex = Number(btn.dataset["row"]);
       const actionIndex = Number(btn.dataset["index"]);
-      option.actions[actionIndex].click && option.actions[actionIndex].click(_tableData[rowIndex], rowIndex);
+      const action = option.actions ? option.actions[actionIndex] : undefined;
+      action && action.click && action.click(_tableData[rowIndex], rowIndex);
     }
-  })
+  });
 
   return {
     /** 
