@@ -27,14 +27,17 @@ function createTable(option) {
       --border: solid 1px #eee;
       --padding: 8px 6px;
       --transition: .24s all;
-      --head-bg: #42b883;
-      --head-color: #fff;
+      --head-bg: #fafafa;
+      --head-color: #333;
       --head-size: 15px;
       --head-height: 50px;
+      --striped-bg: #fafafa;
       --column-size: 14px;
       --column-height: 44px;
       --column-line-height: 22px;
       --column-color: #555;
+      --row-hover-bg: #f0f9eb;
+      --cell-btn-bg: #42b883;
       background-color: #fff;
       border-spacing: 0;
       border-collapse: collapse;
@@ -66,10 +69,10 @@ function createTable(option) {
       transition: var(--transition);
     }
     .the-table-body tr:nth-child(even) {
-      background-color: #fafafa;
+      background-color: var(--striped-bg);
     }
     .the-table-body tr:hover {
-      background-color: #f0f9eb;
+      background-color: var(--row-hover-bg);
     }
     .the-table-btn {
       border: none;
@@ -82,10 +85,10 @@ function createTable(option) {
       font-size: var(--column-size);
       height: var(--column-line-height);
       transition: var(--transition);
-      color: var(--head-bg);
+      color: var(--cell-btn-bg);
     }
     .the-table-btn:hover {
-      background-color: #eee;
+      background-color: var(--striped-bg);
     }
     .the-table-btn:disabled {
       color: #999;
