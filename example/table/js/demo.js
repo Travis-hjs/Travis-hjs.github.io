@@ -53,8 +53,9 @@ const table = createTable({
     { label: "更新时间", prop: "updateTime", width: "160px" },
     {
       label: "图片",
+      prop: "photo",
       width: "100px",
-      slot(row, index) {
+      render(row, index) {
         // const image = new Image();
         // image.style.cssText = "display: block; width: 80px; height: 80px; margin: 0 auto";
         // image.src = row.photo;
