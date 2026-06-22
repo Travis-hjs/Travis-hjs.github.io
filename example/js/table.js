@@ -1,13 +1,11 @@
+/// <reference path="./type.d.ts" />
+
 /**
  * 生成表格到指定节点中
  * @template T
- * @param {object} option
- * @param {HTMLElement} option.el 表格挂载的节点
- * @param {Array<T>} option.data 表格数据
- * @param {Array<{ label: string; prop: string; width?: string; minWidth?: string; render?: (row: T, index: number) => string | HTMLElement }>} option.columns 表格列配置
- * @param {Array<{ text: string | ((row: T, index: number) => string); click?: (row: T, index: number) => void; disabled?: boolean | ((row: T) => boolean); className?: string }>} option.actions 操作列表，当`option.columns`中存在`prop: "actions"`时生效
+ * @param {CustomTable.Props<T>} props 
  */
-function createTable(option) {
+function createTable(props) {
   const styleId = "the-table-style";
   if (!document.getElementById(styleId)) {
     const cssText = `
@@ -131,7 +129,7 @@ function createTable(option) {
   const tableHeader = createElement("header");
   const tableBody = createElement("body");
   table.append(tableHeader, tableBody);
-  option.el.appendChild(table);
+  props.el.appendChild(table);
   
   /**
    * 获取表格栏的宽度样式
@@ -145,7 +143,7 @@ function createTable(option) {
   }
 
   function renderHeader() {
-    const columns = option.columns.map(column => {
+    const columns = props.columns.map(column => {
       const el = createElement("tcolumn", getStyle(column));
       el.textContent = column.label || "-";
       return el;
@@ -168,11 +166,11 @@ function createTable(option) {
     if (!Array.isArray(tableData)) return console.warn("传入的表格数据有误");
     let rowIndex = isPush ? _tableData.length : 0;
     const rowEls = tableData.map(row => {
-      const columnEls = option.columns.map(column => {
+      const columnEls = props.columns.map(column => {
         const columnEl = createElement("column", getStyle(column));
         let btnEls = [];
-        if (column.prop === "actions" && option.actions) {
-          btnEls = option.actions.map((btn, bIndex) => {
+        if (column.prop === "actions" && props.actions) {
+          btnEls = props.actions.map((btn, bIndex) => {
             const btnEl = createElement("btn");
             btn.className && btnEl.classList.add(btn.className);
             btnEl.disabled = typeof btn.disabled === "function" ? !!btn.disabled(row) : !!btn.disabled;
@@ -215,7 +213,7 @@ function createTable(option) {
   
   renderHeader();
   
-  renderBody(option.data);
+  renderBody(props.data);
 
   table.addEventListener("click", e => {
     /** @type {HTMLButtonElement} */
@@ -223,7 +221,7 @@ function createTable(option) {
     if (btn && btn.tagName && btn.tagName.toLocaleLowerCase() === "button") {
       const rowIndex = Number(btn.dataset["row"]);
       const actionIndex = Number(btn.dataset["index"]);
-      const action = option.actions ? option.actions[actionIndex] : undefined;
+      const action = props.actions ? props.actions[actionIndex] : undefined;
       action && action.click && action.click(_tableData[rowIndex], rowIndex);
     }
   });
@@ -231,7 +229,6 @@ function createTable(option) {
   return {
     /** 
      * 更新整个表格数据
-     * @template T
      * @param {Array<T>} data
      */
     update(data) {
@@ -239,7 +236,6 @@ function createTable(option) {
     },
     /**
      * 累加数据
-     * @template T
      * @param {Array<T>} data
      */
     add(data) {
@@ -273,4 +269,131 @@ function createTable(option) {
       return JSON.parse(JSON.stringify(_tableData));
     }
   }
+}
+
+/**
+ * 格式化`json`返回导出表格需要的数据
+ * @template T
+ * @param {Array<T>} target 处理的目标数组
+ * @param {Array<FormatJsonOption<T>>} options 处理配置数组，字段顺序按照这个来
+ */
+function formatJson(target, options) {
+  const headers = options.map((item) => item.header);
+  /** @type Array<Array<string | number>> */
+  const list = [];
+
+  for (let i = 0; i < target.length; i++) {
+    const item = target[i];
+    list[i] = [];
+    for (let j = 0; j < options.length; j++) {
+      const option = options[j];
+      const key = option.key;
+      if (Object.prototype.hasOwnProperty.call(item, key)) {
+        if (option.handle) {
+          list[i].push(option.handle(item, i));
+        } else {
+          list[i].push(item[key]);
+        }
+      } else {
+        console.warn("function formatJson >> item 中不存在对应的 key 值");
+      }
+    }
+  }
+  return {
+    headers,
+    list,
+  };
+}
+
+/**
+ * 原生导出`Excel`函数
+ * @param {NativeExportOption} option
+ */
+function exportExcelByNative(option) {
+  /** 字符串中包含`http`则默认为图片地址 */
+  const reg = /http/;
+  /** 表头的长度 */
+  const headLength = option.header.length;
+  /** 记录条数 */
+  const tableLength = option.data.length;
+  /** 设置图片大小 */
+  const width = option.imgSize?.width || 100;
+  /** 图片高度 */
+  const height = option.imgSize?.height || 100;
+
+  // 添加表头信息
+  let thead = `<thead>${option.insertHeader || ""}<tr>`;
+  for (let i = 0; i < headLength; i++) {
+    thead += `<th>${option.header[i]}</th>`;
+  }
+  thead += "</tr></thead>";
+
+  // 添加每一行数据
+  let tbody = "<tbody>";
+
+  for (let i = 0; i < tableLength; i++) {
+    tbody += "<tr>";
+    const rows = option.data[i];
+    for (let j = 0; j < rows.length; j++) {
+      const row = rows[j];
+      // 如果为图片，则需要加 div包住图片
+      if (reg.test(row.toString())) {
+        tbody += `<td style="width: ${width}px; height: ${height}px; text-align: center; vertical-align: middle">
+                    <div style="display: inline">
+                        <img src="${row}" width="${width}" height="${height}">
+                    </div>
+                </td>`;
+      } else {
+        tbody += `<td style="text-align: ${
+          option.textAlign || "left"
+        }">${row}</td>`;
+      }
+    }
+    tbody += "</tr>";
+  }
+
+  tbody += "</tbody>";
+
+  const ctx = {
+    worksheet: option.fileName,
+    table: thead + tbody,
+  };
+  // return console.log(ctx);
+
+  // 编码要用`utf-8`不然默认`gbk`会出现中文乱码
+  const prefix = "data:application/vnd.ms-excel;base64,";
+  const template = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>`;
+
+  /**
+   * 
+   * @param {string} val 
+   */
+  function base64(val) {
+    // return window.btoa(unescape(encodeURIComponent(val)));
+    const bytes = new TextEncoder().encode(val);
+    let binary = "";
+    const chunkSize = 0x8000;
+
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      const chunk = bytes.subarray(i, i + chunkSize);
+      binary += String.fromCharCode(...chunk);
+    }
+
+    return window.btoa(binary);
+  }
+
+  /**
+   * 
+   * @param {string} value 
+   * @param {Record<string, string>} info 
+   */
+  const format = (value, info) => value.replace(/{(\w+)}/g, (_, p) => info[p]);
+
+  // 创建下载
+  const label = document.createElement("a");
+  label.setAttribute("href", `${prefix}` + base64(format(template, ctx)));
+  label.setAttribute("download", option.fileName);
+  document.body.appendChild(label);
+  label.click();
+  label.remove();
 }

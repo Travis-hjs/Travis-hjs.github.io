@@ -1,114 +1,147 @@
 // 类型提示用（运行时不会引用）
-/// <reference path="../js/type.d.ts" />
+/// <reference path="../js/utils.js" />
+/// <reference path="../js/table.js" />
+
+let id = 0;
 
 /**
- * 格式化`json`返回导出表格需要的数据
- * @template T
- * @param {Array<T>} target 处理的目标数组
- * @param {Array<FormatJsonOption<T>>} options 处理配置数组，字段顺序按照这个来
+ * 图片前缀
+ * [图片来源](https://lol.qq.com/data/info-heros.shtml)
  */
-function formatJson(target, options) {
-  const headers = options.map((item) => item.header);
-  /** @type Array<Array<string | number>> */
-  const list = [];
+const photoPrefix = "https://game.gtimg.cn/images/lol/act/img";
 
-  for (let i = 0; i < target.length; i++) {
-    const item = target[i];
-    list[i] = [];
-    for (let j = 0; j < options.length; j++) {
-      const option = options[j];
-      const key = option.key;
-      if (Object.prototype.hasOwnProperty.call(item, key)) {
-        if (option.handle) {
-          list[i].push(option.handle(item, i));
-        } else {
-          list[i].push(item[key]);
-        }
-      } else {
-        console.warn("function formatJson >> item 中不存在对应的 key 值");
-      }
+const photoList = ["/champion/Talon.png", "/champion/Quinn.png", "/champion/Vladimir.png", "/champion/Sona.png", "/champion/Zed.png", "/champion/MissFortune.png", "/champion/Lux.png"];
+
+/**
+ * 
+ * @param {number} length 
+ * @returns 
+ */
+function useTableData(length = 10) {
+  return new Array(length).fill(0).map((_, index) => {
+    id++;
+    const now = Date.now();
+    const start = ranInt(1, 10) * 10000;
+    const state = ranInt(0, 2);
+    return {
+      id,
+      name: randomText(10, 30),
+      type: randomText(2, 4),
+      user: randomText(2, 4),
+      state: state,
+      stateText: ["待开始", "进行中", "已结束"][state],
+      createTime: new Date(now + start).toLocaleString(),
+      updateTime: new Date(now + start * 2).toLocaleString(),
+      photo: photoPrefix + photoList[ranInt(0, photoList.length - 1)],
     }
-  }
-  return {
-    headers,
-    list,
-  };
+  });
 }
 
-/**
- * 原生导出`Excel`函数
- * @param {NativeExportOptions} option
- */
-function exportExcelByNative(option) {
-  /** 字符串中包含`http`则默认为图片地址 */
-  const reg = /http/;
-  /** 表头的长度 */
-  const headLength = option.header.length;
-  /** 记录条数 */
-  const tableLength = option.data.length;
-  /** 设置图片大小 */
-  const width = option.imgSize?.width || 100;
-  /** 图片高度 */
-  const height = option.imgSize?.height || 100;
+const tableData = useTableData();
 
-  // 添加表头信息
-  let thead = `<thead>${option.insertHeader || ""}<tr>`;
-  for (let i = 0; i < headLength; i++) {
-    thead += `<th>${option.header[i]}</th>`;
-  }
-  thead += "</tr></thead>";
-
-  // 添加每一行数据
-  let tbody = "<tbody>";
-
-  for (let i = 0; i < tableLength; i++) {
-    tbody += "<tr>";
-    const rows = option.data[i];
-    for (let j = 0; j < rows.length; j++) {
-      const row = rows[j];
-      // 如果为图片，则需要加 div包住图片
-      if (reg.test(row.toString())) {
-        tbody += `<td style="width: ${width}px; height: ${height}px; text-align: center; vertical-align: middle">
-                    <div style="display: inline">
-                        <img src="${row}" width="${width}" height="${height}">
-                    </div>
-                </td>`;
-      } else {
-        tbody += `<td style="text-align: ${
-          option.textAlign || "left"
-        }">${row}</td>`;
+const table = createTable({
+  el: document.body,
+  data: tableData,
+  columns: [
+    { label: "ID", prop: "id", minWidth: "50px" },
+    { label: "项目名称", prop: "name", minWidth: "200px" },
+    { label: "项目类型", prop: "type", width: "140px" },
+    { label: "项目创建人", prop: "user", minWidth: "140px" },
+    { label: "项目状态", prop: "stateText", width: "100px" },
+    { label: "创建时间", prop: "createTime", width: "160px" },
+    { label: "更新时间", prop: "updateTime", width: "160px" },
+    {
+      label: "图片",
+      prop: "photo",
+      width: "100px",
+      render(row, index) {
+        // const image = new Image();
+        // image.style.cssText = "display: block; width: 80px; height: 80px; margin: 0 auto";
+        // image.src = row.photo;
+        // image.alt = `${row.id}-${index}`;
+        // image.onclick = function() {
+        //   console.log("替换图片");
+        //   image.src = photoPrefix + "/champion/Sett.png";
+        //   image.onclick = null;
+        // }
+        // return image;
+        return `<img style="display: block; width: 80px; height: 80px; margin: 0 auto" src="${row.photo}" alt="${row.id}-${index}">`;
       }
+    },
+    { label: "操作", prop: "actions", width: "100px" },
+  ],
+  actions: [
+    {
+      text: row => row.state === 2 ? "删除" : "不可删除",
+      disabled: row => row.state != 2,
+      click: (row, index) => confirm(`是否删除【${row.name}】？`) && (table.remove(index), console.log('删除后的表格数据', row.id, tableData))
+    },
+  ]
+});
+
+function setTableData(isInit = false) {
+  if (isInit) {
+    table.update(useTableData());
+  } else {
+    table.add(useTableData());
+  }
+}
+
+function download(insertHeader = false) {
+  const id = Math.random().toString(36).slice(2);
+  /** @type {typeof tableData} */
+  const list = table.data;
+
+  const json = formatJson(list, [
+    {
+      header: "项目ID",
+      key: "id"
+    },
+    {
+      header: "项目名称",
+      key: "name"
+    },
+    {
+      header: "项目类型",
+      key: "type"
+    },
+    {
+      header: "项目创建人",
+      key: "user"
+    },
+    {
+      header: "项目状态",
+      key: "stateText"
+    },
+    {
+      header: "创建时间",
+      key: "createTime"
+    },
+    {
+      header: "项目缩略图",
+      key: "photo",
+      handle: row => row.photo || ""
     }
-    tbody += "</tr>";
-  }
+  ]);
 
-  tbody += "</tbody>";
+  const title = (insertHeader ? "自定义表头" : "") + "表格-" + id;
 
-  const ctx = {
-    worksheet: option.fileName,
-    table: thead + tbody,
-  };
-  // return console.log(ctx);
+  /**
+   * 获取`HTML`空格符号
+   * @param number 
+   * @returns 
+   */
+  const getSpaceCode = (number = 1) => "&emsp;".repeat(number);
 
-  // 编码要用`utf-8`不然默认`gbk`会出现中文乱码
-  const prefix = "data:application/vnd.ms-excel;base64,";
-  const template = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>`;
+  const addHeader = `
+  <tr><th colspan="20" style="font-size: 24px; line-height: 48px;">${title}</th></tr>
+  <tr style="text-align: left; font-size: 18px; line-height: 32px;"><th colspan="20">填报单位：${getSpaceCode(10)}填报日期：${getSpaceCode(4)}年${getSpaceCode(2)}月${getSpaceCode(2)}日</th></tr>
+  `;
 
-  function base64(val) {
-    return window.btoa(unescape(encodeURIComponent(val)));
-  }
-
-  function format(value, info) {
-    return value.replace(/{(\w+)}/g, (m, p) => {
-      return info[p];
-    });
-  }
-
-  // 创建下载
-  const label = document.createElement("a");
-  label.setAttribute("href", `${prefix}` + base64(format(template, ctx)));
-  label.setAttribute("download", option.fileName);
-  document.body.appendChild(label);
-  label.click();
-  label.remove();
+  exportExcelByNative({
+    header: json.headers,
+    data: json.list,
+    fileName: title,
+    insertHeader: insertHeader ? addHeader : undefined
+  });
 }
