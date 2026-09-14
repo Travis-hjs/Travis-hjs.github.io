@@ -6,18 +6,25 @@
   <title>Document</title>
 </head>
 <body>
-  <iframe class="console-admin" style="width: 100%; height: 100vh" src="" frameborder="0" allow="local-network; loopback-network; local-network-access"></iframe>
+  <textarea class="token-input" rows="10" placeholder="请输入token"></textarea>
+  <button onclick="openFrame('test')">创建测试</button>
+  <button onclick="openFrame()">创建</button>
+  <!-- <iframe class="console-admin" style="width: 100%; height: 100vh" src="" frameborder="0" allow="local-network; loopback-network; local-network-access"></iframe> -->
   <script>
-    const iframe = document.querySelector(".console-admin");
-    /** 登录token */
-    const token = ``;
-    /** 页面路径 */
-    const path = "/jscodes";
-    // 正式环境：
-    const url = `https://test-console.changzhi.top/#${path}?login_token=${token}&iframe=1&search=1`;
-    // 测试环境
-    // const url = `https://test-console.changzhi.top/#${path}?login_token=${token}&iframe=1&search=1`;
-    iframe.src = url;
+    function openFrame(test = "") {
+      const iframe = document.createElement("iframe");
+      iframe.style.cssText = `width: 100%; height: 100vh`;
+      iframe.frameBorder = "0";
+      iframe.allow = "local-network; loopback-network; local-network-access";
+      /** 登录token */
+      const token = ``;
+      /** 页面路径 */
+      const path = "/jscodes";
+      // 正式环境：
+      const url = `https://${test}console.changzhi.top/#${path}?login_token=${token}&iframe=1&search=1`;
+      iframe.src = url;
+      document.body.appendChild(iframe);
+    }
   </script>
 </body>
 </html>
