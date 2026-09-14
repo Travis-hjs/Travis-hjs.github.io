@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <iframe class="console-admin" style="width: 100%; height: 100vh" src="" frameborder="0" allow="local-network-access"></iframe>
+  <script>
+    const iframe = document.querySelector(".console-admin");
+    /** 登录token */
+    const token = ``;
+    /** 页面路径 */
+    const path = "/dino/platform/premium/report";
+    // 正式环境：
+    const url = `https://console.changzhi.top/#${path}?login_token=${token}&iframe=1&search=1`;
+    // 测试环境
+    // const url = `https://test-console.changzhi.top/#${path}?login_token=${token}&iframe=1&search=1`;
+    iframe.src = url;
+  </script>
+</body>
+</html>
