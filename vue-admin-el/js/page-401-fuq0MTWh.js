@@ -1,0 +1,1 @@
+import{St as e,it as t,tt as n}from"./ui-CIm5c0MY.js";import{t as r}from"./plugin-vue-export-helper-BiICrpK0.js";var i={name:`page-401`},a={class:`page-401`};function o(r,i,o,s,c,l){return e(),t(`div`,a,i[0]||=[n(`div`,null,`暂无权限访问`,-1)])}var s=r(i,[[`render`,o]]);export{s as default};
